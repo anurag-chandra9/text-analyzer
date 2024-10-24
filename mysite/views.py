@@ -1,20 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-# def ex1(request):
-#      s=['''Navigation Bar <br> </h2>
-#     <a href= "https://www.youtube.com/playlist?list=PLu0W_9lII9ah7DDtYtflgwMwpT3xmjXY9" > Django Code With Harry Bhai </a><br>
-#     <a href="https://www.facebook.com/"> Facebook </a> <br>
-#     <a href="https://www.flipkart.com/"> Flipkart </a> <br>
-#     <a href="https://www.hindustantimes.com/"> News </a> <br>
-#     <a href="https://www.google.com/"> Google </a> <br>''']
-#      return HttpResponse((s))
+
               
 
 
-# def index(request):
-#     return HttpResponse("<h1>hello anurag</h1>")
-# def about(request):
-#     return HttpResponse(" anurag")
+
 
 
 
@@ -31,7 +21,6 @@ def analyze(request):
     fullcaps=request.POST.get('fullcaps','off')
     newlineremover=request.POST.get('newlineremover','off')
     extraspaceremover=request.POST.get('extraspaceremover','off')
-    #charcount=request.POST.get('charcount','off')
   
     analyzed=djtext
     if removepunc=="on":
