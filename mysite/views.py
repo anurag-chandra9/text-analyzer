@@ -21,19 +21,18 @@ from django.shortcuts import render
 
 
 def index(request):
-    print(request.GET.get('text','defaault'))
-    return render(request,'index2.html')
+    print(request.POST.get('text','defaault'))
+    return render(request,'index.html')
     
     return HttpResponse("home")
 def analyze(request):
-    djtext=request.GET.get('text','default')
-    removepunc=request.GET.get('removepunc','off')
-    fullcaps=request.GET.get('fullcaps','off')
-    newlineremover=request.GET.get('newlineremover','off')
-    extraspaceremover=request.GET.get('extraspaceremover','off')
-    charcount=request.GET.get('charcount','off')
-    print(removepunc)
-    print(djtext) 
+    djtext=request.POST.get('text','default')
+    removepunc=request.POST.get('removepunc','off')
+    fullcaps=request.POST.get('fullcaps','off')
+    newlineremover=request.POST.get('newlineremover','off')
+    extraspaceremover=request.POST.get('extraspaceremover','off')
+    #charcount=request.POST.get('charcount','off')
+  
     analyzed=djtext
     if removepunc=="on":
          punctuation='''!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~'''
@@ -42,49 +41,36 @@ def analyze(request):
              if char not in punctuation:
                  analyzed=analyzed+char
          params={'purpose':'removed punctuatoions', 'analyzed_text':analyzed}
-         return render(request,'analyze.html',params)
-    elif(fullcaps=="on"):
+         djtext=analyzed
+    if(fullcaps=="on"):
         analyzed=""
         for char in djtext:
             analyzed=analyzed+char.upper()
             params={'purpose':'change to uppercase', 'analyzed_text':analyzed}
-        return render(request,'analyze.html',params)
-    elif(newlineremover=="on"):
+            djtext=analyzed
+    if(newlineremover=="on"):
           analyzed=""
-          for index, char in enumerate(djtext):
-            if not(djtext[index] == " " and djtext[index+1]==" "):
+          for char in djtext:
+            if char !="\n" and char!="\r":
                 analyzed = analyzed + char
             params={'purpose':'remove new line', 'analyzed_text':analyzed}
-          return render(request,'analyze.html',params)
-    elif(extraspaceremover=="on"):
+            djtext=analyzed
+    if(extraspaceremover=="on"):
            analyzed=""
            for index,char in enumerate(djtext):
-            if djtext[index]== " " and djtext[index+1]==" " :
+            if djtext[index]== " " and djtext[index+1]==" ":
                 pass
             else: analyzed = analyzed + char
             params={'purpose':'remove new line', 'analyzed_text':analyzed}
-           return render(request,'analyze.html',params)
-    # elif(charcount=="on"):
-    #     count=0
-    #     for char in djtext:
-    #         if char.isalpha():
-    #             count+=1
-    #         params={'purpose':'remove new line', 'analyzed_text':count}
-    #     return render(request,'analyze.html',params)    
-
+           djtext=analyzed
+    if(removepunc!="on"and newlineremover!="on"and extraspaceremover!="on"and fullcaps!="on"):
+        return HttpResponse("error")       
+     
+    return render(request,'analyze.html',params)
    
-    else:
-     return HttpResponse("ERROR")  
+   
           
    
     
       
             
-# def capfirst(request):
-#     return HttpResponse("captalize first")
-# def newlineremove(request):
-#     return HttpResponse("newlineremove")
-# def spaceremove(request):
-#     return HttpResponse("spaceremove")
-# def charcount(request):
-#     return HttpResponse("charcount")

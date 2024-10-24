@@ -24,9 +24,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.index,name='index'),
     path('analyze',views.analyze, name='analyze'),
-#     path('newlineremove',views.newlineremove, name='newlineremove'),
-#     path('capitalizefirst',views.capfirst, name='capfirst'),
-#     path('spaceremove',views.spaceremove, name='spaceremove'),
+   # path('newlineremover',views.newlineremover, name='newlineremover'),
+   # path('capitalizefirst',views.capfirst, name='capfirst'),
+    #path('spaceremove',views.spaceremove, name='spaceremove'),
 #     path('charcount',views.charcount, name='charcount'),
 #path('ex1',views.ex1, name='ex1'),
 ]
